@@ -15,7 +15,7 @@ const HomeMainSection = ({ reviews }) => {
     <main>
       <section class="Home-Main-Section" style={{padding:10}}>
         <h2>About Us</h2>
-        <p>Welcome to our online store! We are passionate about providing high-quality products and exceptional customer service. Learn more about our story and commitment to your satisfaction.</p>
+        <p>At LaFlamme Company, we are more than just a business - we are a passionate team dedicated to serving our customers and communities with integrity, compassion, and excellence.</p>
         <Link to="/products">
           <button>Shop Now</button>
         </Link>
