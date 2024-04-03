@@ -1,5 +1,5 @@
 Libraries used:
-Flask
+Flask, flask-cors
 
 setting up virtual machine: 
     1.be in backend dir
@@ -11,3 +11,7 @@ setting up virtual machine:
         1. venv\Scripts\activate
         2. pip install Flask
         3. pip install flask-cors
+
+starting API : 
+    1.be in backend dir
+    2. run: python app.py
