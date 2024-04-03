@@ -13,14 +13,14 @@ const HomeMainSection = ({ reviews }) => {
 
   return (
     <main>
-      <section class="Home-Main-Section" style={{padding:10}}>
+      <section className="Home-Main-Section" style={{padding:10}}>
         <h2>About Us</h2>
         <p>At LaFlamme Company, we are more than just a business - we are a passionate team dedicated to serving our customers and communities with integrity, compassion, and excellence.</p>
         <Link to="/products">
           <button>Shop Now</button>
         </Link>
       </section>
-      <section class="Review" style={{padding:10}}>
+      <section className="Review" style={{padding:10}}>
         <h2>Customer Reviews</h2>
         {reviews.map((review, index) => (
           <div key={index}>

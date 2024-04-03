@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Homepage from './components/Homepage';
 import Productpage from './components/Productpage';
-import LoginPage from './components/LoginPage'; // Import the LoginPage component
+import LoginPage from './components/LoginPage';
 
 const App = () => {
+  const [authentication, setAuthentication] = useState(false);
+  
+
   return (
     <Router>
       <div>
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/products" element={<Productpage />} />
+          {/* Use a ternary operator to conditionally render components */}
+          <Route
+            path="/products"
+            element={authentication ? <Productpage /> : <LoginPage/>}
+          />
           {/* Render the LoginPage component for the /login route */}
           <Route path="/login" element={<LoginPage />} />
         </Routes>
@@ -20,4 +27,3 @@ const App = () => {
 };
 
 export default App;
-
