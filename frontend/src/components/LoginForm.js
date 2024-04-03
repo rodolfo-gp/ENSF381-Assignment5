@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
 
-const LoginForm = ({ onSwitchToSignup, onLogin }) => {
+const LoginForm = ({ onSwitchToSignup}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [Authenticated, setAuthenticated] = useState(false);
   const [message, setMessage] = useState("");
   const navigate = useNavigate(); // Initialize the useNavigate hook
 
-  console.log("")
-  console.log(`username: ${username}`)
-  console.log(`pass: ${password}`)
-  console.log(`authenticated: ${Authenticated}`)
-  console.log(`messege: ${message}`)
+  console.log("");
+  console.log(`username: ${username}`);
+  console.log(`pass: ${password}`);
+  console.log(`authenticated: ${Authenticated}`);
+  console.log(`messege: ${message}`);
 
-  function handleLogin() {
+  function handleLogin(e) {
+
+    e.preventDefault();
+
     fetch('http://127.0.0.1:5000/authenticate', {
         method: 'POST',
         headers: {
@@ -24,23 +27,18 @@ const LoginForm = ({ onSwitchToSignup, onLogin }) => {
     })
     .then(response => response.json())
     .then(response => {
-      if (response.Authenticated) {
-        setAuthenticated(true);
-        setMessage("Authentication successful");
-      }else {
-        setAuthenticated(false);
-        setMessage("Authentication failed. Incorrect username or password.");
-      }
+      setAuthenticated(response.authenticated);//must be lower case
+      setMessage(response.message);
     })
     .catch(error => {
-      console.error(error); // Log any errors that occur
+      console.error(`ERRORRRR: ${error}`); // Log any errors that occur
       setMessage('Authentication failed. Incorrect username or password.');
     });
   };
 
   // Use navigate function to redirect to "/product" if authenticated
   if (Authenticated) {
-    navigate("/product");
+    navigate("/products");
   }
   
   return (
