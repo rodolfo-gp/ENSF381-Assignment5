@@ -85,15 +85,6 @@ products = [
     } 
 ] 
 ############################# Helper functions #############################
-def load_userlist():
-    return users
-
-def load_products():
-    return products
-
-def save_userlist(newlist):
-    users = newlist
-    
 def does_username_exist(userlist, username):
     for user in userlist:
         if user['username'] == username:
@@ -114,18 +105,32 @@ def authenticate_user():
     return jsonify({"authenticated": False, "message": "Authentication failed. Incorrect username or password."})
 
 
-@app.route('/registration', methods=['POST'])
+@app.route('/signup', methods=['POST'])
 def add_user():
     new_user = request.json
-    if not does_username_exist(new_user['username']):
-        currentUserList = load_userlist()
-        currentUserList.append(new_user)
-        save_userlist(currentUserList)
-        return "User created Succefully", 201
+    if not does_username_exist(users, new_user['username']):
+        
+        users.append(new_user)
+        return {'message': "User created Succefully" }, 201
     else:
-        return "Username Already in Use", 406 #not acceptable
-    
+        return {'message': "Username already in use" }, 406 #not acceptable
 
+@app.route('/products', methods=['GET'])
+def get_all_products():
+    return jsonify(products)
+
+@app.route('/products/<int:product_id>', methods=['GET'])
+def get_product_by_id(product_id):
+    product = next((p for p in products if p['id'] == product_id), None)
+    if product:
+        return jsonify(product)
+    else:
+        return jsonify({'message': 'Product not found'}), 404
+ 
+##this is for testing purposes 
+@app.route('/users', methods=['GET'])
+def get_users():
+    return jsonify(users)
 
 
 if __name__ == "__main__":

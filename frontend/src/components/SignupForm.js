@@ -5,28 +5,40 @@ const SignupForm = ({ onSwitchToLogin, onSignup }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleSignup = (e) => {
     e.preventDefault();
     if (username.trim() === '' || password.trim() === '' || confirmPassword.trim() === '' || email.trim() === '') {
-      setErrorMessage('Please fill in all fields.');
+      setMessage('Please fill in all fields.');
       return;
     }
     if (password !== confirmPassword) {
-      setErrorMessage('Password and Confirm Password must match.');
+      setMessage('Password and Confirm Password must match.');
       return;
     }
-    // Reset error message if no error
-    setErrorMessage('');
-    // Call the signup handler function
-    onSignup({ username, password, email });
+    fetch('http://127.0.0.1:5000/signup', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({'username':username, 'password':password, 'email': email})
+    })
+    .then(response => response.json())
+    .then(response => {
+      setMessage(response.message);
+    })
+    .catch(error => {
+      console.error(`Consol ERROR: ${error}`); // Log any errors that occur
+      setMessage(error);
+    });
+    
   };
 
   return (
     <form onSubmit={handleSignup}>
       <div style={{ marginBottom: '10px' }}>
-        <span style={{ color: 'red', display: 'block', fontSize: '14px' }}>{errorMessage}</span>
+        <span style={{ color: 'red', display: 'block', fontSize: '14px' }}>{message}</span>
       </div>
       <div>
         <label htmlFor="username">Username:</label>

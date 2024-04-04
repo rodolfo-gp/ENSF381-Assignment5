@@ -5,7 +5,7 @@ import Productpage from './components/Productpage';
 import LoginPage from './components/LoginPage';
 
 const App = () => {
-  const [authentication, setAuthentication] = useState(false);
+  const [authentication, setAuthentication] = useState(true);
   
   
   return (
