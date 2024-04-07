@@ -3,27 +3,24 @@ import Header from './Header';
 import ProductList from './ProductList';
 import Cart from './Cart';
 import Footer from './Footer';
-import { Link } from 'react-router-dom';
+import productsData from '../data/products';
 
 const Productpage = () => {
-  const [cartItems, setCartItems] = useState([]);
-
   // Load cart items from localStorage on component mount
-  useEffect(() => {
-    const storedCartItems = localStorage.getItem('cartItems');
-    if (storedCartItems) {
-      console.log("Loaded cart items from localStorage:", storedCartItems);
-      console.log("Loaded cart items in JSON", JSON.parse (storedCartItems));
-      setCartItems(JSON.parse(storedCartItems));
-  
-    }
-  }, []); 
+  const storedCartItems = localStorage.getItem('cartItems');
+  const initialCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];
 
-  
+  const [cartItems, setCartItems] = useState(initialCartItems);
+
+  useEffect(() => {
+    console.log("Loaded cart items from localStorage:", initialCartItems);
+    console.log("Loaded cart items in JSON", JSON.stringify(initialCartItems));
+  }, [initialCartItems]); 
+
   useEffect(() => {
     console.log("Productpage component rerendered");
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
-  }, [cartItems]); 
+  }, [cartItems]);  
 
   const addToCart = (product) => {
     const existingItemIndex = cartItems.findIndex(item => item.id === product.id);
@@ -50,7 +47,7 @@ const Productpage = () => {
         }
       }
       return item;
-    }).filter(item => item !== null); // Filter out null entries to remove removed items from cart
+    }).filter(item => item !== null);
 
     console.log("Updated Cart Items:", updatedCartItems);
     setCartItems(updatedCartItems);
@@ -62,7 +59,7 @@ const Productpage = () => {
       <table>
         <tbody>
           <tr>
-            <td><ProductList onAddToCart={addToCart} /></td>
+            <td><ProductList products={productsData} onAddToCart={addToCart} /></td>
             <td style={{ verticalAlign: 'top' }}><Cart cartItems={cartItems} onRemove={removeFromCart} /></td>
           </tr>
         </tbody>
@@ -73,3 +70,4 @@ const Productpage = () => {
 };
 
 export default Productpage;
+
