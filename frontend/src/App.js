@@ -5,8 +5,12 @@ import Productpage from './components/Productpage';
 import LoginPage from './components/LoginPage';
 
 const App = () => {
-  const [authentication, setAuthentication] = useState(true);
-  
+  const [authentication, setAuthentication] = useState(false);
+
+  const setAuth = (data) => {
+    console.log("From app.js: ", data)
+    setAuthentication(data);
+  };
   
   return (
     <Router>
@@ -16,10 +20,10 @@ const App = () => {
           {/* Use a ternary operator to conditionally render components */}
           <Route
             path="/products"
-            element={authentication ? <Productpage /> : <LoginPage/>}
+            element={authentication ? <Productpage /> : <LoginPage onLogin={setAuth}/>}
           />
           {/* Render the LoginPage component for the /login route */}
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage onLogin={setAuth} />} />
         </Routes>
       </div>
     </Router>

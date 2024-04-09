@@ -4,7 +4,7 @@ import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import Footer from './Footer';
 
-const LoginPage = () => {
+const LoginPage = ({onLogin}) => {
   const [showLoginForm, setShowLoginForm] = useState(true);
 
   const handleSwitchToSignup = () => {
@@ -24,9 +24,9 @@ const LoginPage = () => {
       </div>
       <div style={{ display: 'flex', justifyContent: 'left', alignItems: 'flex-start' }}>
         {showLoginForm ? (
-          <LoginForm onSwitchToSignup={handleSwitchToSignup} />
+          <LoginForm onSwitchToSignup={handleSwitchToSignup} onLogin={onLogin}/>
         ) : (
-          <SignupForm onSwitchToLogin={handleSwitchToLogin} />
+          <SignupForm onSwitchToLogin={handleSwitchToLogin}/>
         )}
         <div style={{ marginLeft: '20px' }}>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
 
-const LoginForm = ({ onSwitchToSignup}) => {
+const LoginForm = ({ onLogin, onSwitchToSignup}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [Authenticated, setAuthenticated] = useState(false);
@@ -26,17 +26,21 @@ const LoginForm = ({ onSwitchToSignup}) => {
     })
       .then(response => response.json())
       .then(data => {
-        setAuthenticated(data.authenticated); // Use data.authenticated instead of response.authenticated
-        setMessage(data.message); // Use data.message instead of response.message
+        
+        setAuthenticated(data.authenticated);
+        setMessage(data.message);
         if (data.authenticated) {
-          navigate("/products"); // Redirect to "/products" if authenticated
+          // Call onLogin with the updated Authenticated state
+          onLogin(data.authenticated);
+          navigate("/products");
         }
       })
       .catch(error => {
-        console.error(`ERRORRRR: ${error}`); // Log any errors that occur
-        setMessage(error);
+        console.error(`ERRORRRR: ${error}`);
+        setMessage('Authentication failed. Please try again later.');
       });
   };
+  
   
 
   // Use navigate function to redirect to "/product" if authenticated
