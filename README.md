@@ -20,6 +20,6 @@ To set up and run the application, follow these steps:
 Ensure that both the backend and frontend are running simultaneously to enable full functionality, including authentication, sign-up, and product page features.
 
 ## Demo
-Watch the demo on [YouTube](https://youtu.be/7yRfdCGgevM).  
+Watch the [demo](https://youtu.be/7yRfdCGgevM) on YouTube.  
 <br>
 [![Website and Server Project Demo](https://img.youtube.com/vi/7yRfdCGgevM/0.jpg)](https://youtu.be/7yRfdCGgevM)
