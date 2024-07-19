@@ -1,8 +1,5 @@
 # Website and Server Project
 
-## Project By
-- **Rodolfo Gil-Pereira**
-
 ## Description
 This project features a shopping website developed using ReactJS, paired with a backend server implemented with Python Flask. The website communicates with the backend through API requests for authentication and sign-up processes. The backend validates the submitted information against its JSON file database and responds accordingly. Key features of the website include user login, sign-up, page navigation protection requiring authentication, and a shopping cart that retains selected products. The backend also serves product information, which the website queries to display relevant product details.
 
